@@ -33,7 +33,7 @@ class Settings(BaseSettings):
 
     # --- LLM / key pool -------------------------------------------------------------
     llm_api_keys: SecretStr = Field(default=SecretStr(""))
-    llm_model: str = "gemini/gemini-2.0-flash"
+    llm_model: str = "gemini/gemini-3.8-flash"
     llm_key_models: str = ""
     llm_api_base: str | None = None
     llm_timeout_seconds: float = Field(default=30.0, gt=0)
