@@ -1,0 +1,16 @@
+# Runtime dependencies — pinned. Verified together on Python 3.12/3.13.
+litellm==1.110.2
+# LiteLLM's cache path imports proxy modules that need fastapi, orjson (Phase 0) and
+# soundfile (Phase 1: without it acompletion(caching=True) raises ModuleNotFoundError).
+# This is far lighter than litellm[proxy]. Self-checked at startup (cache_service).
+fastapi==0.165.0
+starlette==1.10.0
+orjson==3.13.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.4
+pydantic-settings==2.16.3
+SQLAlchemy[asyncio]==2.1.9
+aiosqlite==0.22.1
+soundfile==0.14.0
+numpy==2.5.5
+cffi==2.1.1

@@ -1,0 +1,27 @@
+# Render Blueprint — Lyftr backend (FastAPI + LiteLLM + SQLite), Docker web service.
+# Render: New → Blueprint → select this repo. You are prompted for the `sync: false` values.
+services:
+  - type: web
+    name: lyftr-backend
+    runtime: docker
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    region: singapore
+    # No `plan` given → Render's default paid web-service instance, which a persistent disk needs.
+    # (Free instances cannot have a disk: SQLite would be lost on every restart/spin-down.)
+    healthCheckPath: /health
+    disk:
+      name: lyftr-data
+      mountPath: /data # the image already sets DATABASE_URL=sqlite:////data/app.db
+      sizeGB: 1
+    envVars:
+      - key: LLM_API_KEYS # two DISTINCT Gemini keys from two Google Cloud projects, comma-separated
+        sync: false
+      - key: ALLOWED_ORIGINS # your frontend URL, e.g. https://lyftr-frontend.onrender.com
+        sync: false
+      - key: LLM_MODEL
+        value: gemini/gemini-2.0-flash
+      - key: ENABLE_FAILURE_SIMULATION # required by the assignment on the deployed backend
+        value: "true"
+      - key: LOG_LEVEL
+        value: INFO
