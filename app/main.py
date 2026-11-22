@@ -68,8 +68,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         title="Lyftr LLM Chatbot API",
         version="0.1.0",
         lifespan=lifespan,
-        docs_url="/docs" if settings.app_env != "production" else None,
+        docs_url=None,
         redoc_url=None,
+        openapi_url=None,
     )
     register_error_handlers(app)
     # Added first → inner layer; CORS added last → outermost, so even 500s carry CORS headers.
